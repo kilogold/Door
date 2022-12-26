@@ -31,5 +31,8 @@ end
 UI->>-Door: Unlock
 Bob->>+Door: Engage
 Door-->>-Bob: Open
-
 ```
+
+# Door UI
+Could be done in regular .NET app (probably best). Could also be done in Unity, but I don't need a renderer to make this happen.
+To interact with an EVM network, I will need a library like Nethereum.
