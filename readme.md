@@ -33,6 +33,30 @@ Bob->>+Door: Engage
 Door-->>-Bob: Open
 ```
 
+
+``` mermaid
+    C4Container
+    title Container diagram for Door
+    Person(user, User, "A customer of the door.", $tags="v1.0")
+    Container_Boundary(EVM, "Ethereum") {
+        Container(pos, "PoS", "Solidity", "Smart contract serving as point of sale.")
+    }
+    Container_Boundary(sysDoor, "Door") {
+        Container(ui, "UI Controller", "C#", "Automates locking/unlocking mechanism")
+        Container(door, "Door", "Wood", "A physical door")
+    }
+    Rel(ui,door,"Locks/Unlocks")
+    UpdateRelStyle(ui, door, $offsetY="-25", $offsetX="-35")
+    Rel(user,ui, "Pay/validate access.")
+    UpdateRelStyle(user,ui, $offsetY="75", $offsetX="120")
+    Rel(user,pos, "Pay/verify access.")
+    UpdateRelStyle(user,pos, $offsetY="75", $offsetX="-80")
+    Rel(ui,pos, "Transact/validate access.")
+    UpdateRelStyle(ui,pos, $offsetY="-25", $offsetX="-65")
+    Rel(user,door,"Open/Close")
+    UpdateRelStyle(user,door, $offsetY="90", $offsetX="230")
+```
+
 # Door UI
 Could be done in regular .NET app (probably best). Could also be done in Unity, but I don't need a renderer to make this happen.
 To interact with an EVM network, I will need a library like Nethereum.
