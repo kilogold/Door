@@ -27,3 +27,40 @@ def test_pay_for_access_successful_balance(accounts, pos):
     assert pos.hasAccess(user) == True
     assert pos.balance() > 0
 
+def test_deadline_expiration(accounts, pos, chain):
+    user = accounts[0]
+    assert pos.hasAccess(user) == False
+
+    numberBlocks = 3
+    total_block_allowance = pos.ratePerBlock() * numberBlocks
+    pos.payForAccess({'value': total_block_allowance})
+    assert pos.hasAccess(user) == True
+    chain.mine(numberBlocks)
+    assert pos.hasAccess(user) == True
+    chain.mine()
+    assert pos.hasAccess(user) == False
+
+def test_deadline_extension(accounts, pos, chain):
+    user = accounts[0]
+    assert pos.hasAccess(user) == False
+
+    numberBlocks = 3
+    total_block_allowance = pos.ratePerBlock() * numberBlocks
+    pos.payForAccess({'value': total_block_allowance})
+    assert pos.hasAccess(user) == True
+
+    # Advance to the last valid blockheight.
+    chain.mine(numberBlocks)
+    assert pos.hasAccess(user) == True
+
+    # Extend time by same amount.
+    pos.payForAccess({'value': total_block_allowance})
+
+    # Test next block.
+    chain.mine()
+    assert pos.hasAccess(user) == True
+
+    # Test exact remainder of blocks from extension
+    assert pos.balanceOf(user) == numberBlocks - 1
+
+

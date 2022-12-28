@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 contract PointOfSale {
     using SafeMath for uint256;
 
-    mapping (address=>uint256) blockBalances;
+    mapping (address=>uint256) public blockheightDeadlines;
     uint256 public ratePerBlock;
 
     constructor(uint256 rate) {
@@ -18,12 +18,12 @@ contract PointOfSale {
     }
 
     function hasAccess(address addr) public view returns (bool) {
-        return blockBalances[addr] >= block.number;
+        return blockheightDeadlines[addr] >= block.number;
     }
 
     function balanceOf(address _owner) public view returns (uint256) {
-        uint256 deadline = blockBalances[_owner];
-        return deadline == 0 ? 0 : deadline - block.number ;
+        uint256 deadline = blockheightDeadlines[_owner];
+        return (deadline == 0) ? 0 : deadline - block.number ;
     }
 
     function computeBlockHeightFromPayment(uint256 payAmount) public view returns (uint256) {
@@ -39,13 +39,13 @@ contract PointOfSale {
         {
             // Extend allowance period:
             // Aggregate new blocktime with remaining balance
-            blockBalances[msg.sender] += newBlockAllowance;
+            blockheightDeadlines[msg.sender] += newBlockAllowance;
 
         }
         else // allowance expired...
         {
             // Reset allowance to a newly computed deadline.
-            blockBalances[msg.sender] = block.number + newBlockAllowance;
+            blockheightDeadlines[msg.sender] = block.number + newBlockAllowance;
         }
     }
 }
