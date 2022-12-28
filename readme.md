@@ -60,3 +60,11 @@ Door-->>-Bob: Open
 # Door UI
 Could be done in regular .NET app (probably best). Could also be done in Unity, but I don't need a renderer to make this happen.
 To interact with an EVM network, I will need a library like Nethereum.
+
+# Setup
+## Dev Env
+Add the following evn var to bashrc for easier iteration:
+```sh
+export POS_DOOR_PRIV_KEY="0xb5b1870957d373ef0eeffecc6e4812c0fd08f554b37b233526acc331bf1544f7"
+```
+You can use the [dev-ganashe-cli.sh](dev-ganashe-cli.sh) to spin up a dev chain with this account.

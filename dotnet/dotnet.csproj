@@ -11,4 +11,8 @@
     <PackageReference Include="Nethereum.Web3" Version="4.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\brownie\CodeGen\Brownie.csproj" />
+  </ItemGroup>
+
 </Project>
