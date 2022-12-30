@@ -61,6 +61,9 @@ Door-->>-Bob: Open
 Could be done in regular .NET app (probably best). Could also be done in Unity, but I don't need a renderer to make this happen.
 To interact with an EVM network, I will need a library like Nethereum.
 
+## Demo
+https://user-images.githubusercontent.com/1028926/210047057-0e9c603f-eccf-4fd4-8c28-0dd55ae34af5.mp4
+
 # Setup
 ## Dev Env
 Add the following evn var to bashrc for easier iteration:
