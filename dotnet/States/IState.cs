@@ -15,7 +15,7 @@ namespace dotnet
             public string DisplayMessage { get; }
             public Option[] Options { get; }
 
-            public void Enter();
+            public Task Enter();
             public void Exit();
 
             public Task Processing();

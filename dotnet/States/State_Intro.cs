@@ -2,17 +2,19 @@ namespace dotnet
 {
     public partial class Runtime
     {
-        private class State_Intro : BaseState
+        private sealed class State_Intro : BaseState
         {
-            public State_Intro()
+            private State_Intro()
             {
                 DisplayMessage = "Welcome to the runtime. Would you like to begin?";
                 Options = new[]
                 {
-                    new IState.Option { Label = "Yes", StateInstance = new State_Init() },
-                    new IState.Option { Label = "No", StateInstance = new State_Terminate() }
+                    new IState.Option { Label = "Yes", StateInstance = State_Init.Instance },
+                    new IState.Option { Label = "No", StateInstance = State_Terminate.Instance }
                 };
             }
+
+            public static State_Intro Instance { get; } = new();
         }
     }
 }

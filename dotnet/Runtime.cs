@@ -8,7 +8,7 @@ namespace dotnet
         public Runtime()
         {
             IsRunning = true;
-            Transition(new State_Intro());
+            Transition(State_Intro.Instance).Wait();
         }
 
         public void PrintStateMessage()
@@ -39,9 +39,9 @@ namespace dotnet
         {
             return InputIsQuit(input) || IsTerminalState(currentState);
         }
-        public void Input()
+        public async Task Input()
         {
-            int selectedIdx = -1;
+            int selectedIdx;
             while(true)
             {
                 ConsoleKeyInfo input = Console.ReadKey();
@@ -59,7 +59,7 @@ namespace dotnet
                 Console.CursorLeft -= 1;
             }
             
-            Transition(currentState.Options[selectedIdx].StateInstance);
+            await Transition(currentState.Options[selectedIdx].StateInstance);
         }
 
         public async Task Processing()
@@ -67,11 +67,11 @@ namespace dotnet
             await currentState.Processing();
         }
 
-        private void Transition(IState newState)
+        private async Task Transition(IState newState)
         {
             currentState?.Exit();
             currentState = newState;
-            currentState.Enter();
+            await currentState.Enter();
         }
 
         private void Shutdown()

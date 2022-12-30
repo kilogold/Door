@@ -12,13 +12,14 @@ namespace dotnet
                 };
             }
 
-            public string DisplayMessage { get; protected init; }
-            public IState.Option[] Options { get; protected init; }
-
-            public virtual void Enter() { /*Optional override*/ }
-
+            public virtual string DisplayMessage { get; protected init; }
+            public virtual IState.Option[] Options { get; protected init; }
             public virtual void Exit() { /*Optional override*/ }
-
+            public virtual Task Enter()
+            {
+                return Task.CompletedTask;
+                /*Optional override*/
+            }
             public virtual Task Processing()
             {
                 /*Optional override*/

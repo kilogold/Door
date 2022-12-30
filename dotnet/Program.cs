@@ -10,7 +10,7 @@
                 runtime.PrintStateMessage();
                 await runtime.Processing();
                 runtime.PrintStateOptions();
-                runtime.Input();
+                await runtime.Input();
             }
             return 0;
         }

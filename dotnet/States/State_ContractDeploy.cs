@@ -8,20 +8,24 @@ namespace dotnet
 {
     public partial class Runtime
     {
-        private class State_ContractDeploy : BaseState
+        private sealed class State_ContractDeploy : BaseState
         {
-            private readonly PointOfSaleDeployment deploymentMessage;
+            private const int CONFIG_RATE = 10;
             
-            public State_ContractDeploy(BigInteger rate)
+            private readonly PointOfSaleDeployment deploymentMessage;
+
+            private State_ContractDeploy()
             {
                 deploymentMessage = new PointOfSaleDeployment()
                 {
-                    Rate = rate // Wei
+                    Rate = CONFIG_RATE // Wei
                 };
                 
                 DisplayMessage = "Deploying contract...";
-                Options = OptionTemplate_Continue(new State_Terminate());
+                Options = OptionTemplate_Continue(State_DoorInteraction.Instance);
             }
+
+            public static State_ContractDeploy Instance { get; } = new();
 
             public override async Task Processing()
             {

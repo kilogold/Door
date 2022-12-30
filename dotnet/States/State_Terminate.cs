@@ -2,13 +2,15 @@ namespace dotnet
 {
     public partial class Runtime
     {
-        private class State_Terminate : BaseState
+        private sealed class State_Terminate : BaseState
         {
-            public State_Terminate()
+            private State_Terminate()
             {
                 DisplayMessage = "Shutdown";
                 Options = null;
             }
+
+            public static State_Terminate Instance { get; } = new();
         }
     }
 }
