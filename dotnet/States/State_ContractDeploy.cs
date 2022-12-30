@@ -11,10 +11,11 @@ namespace dotnet
         private sealed class State_ContractDeploy : BaseState
         {
             private const int CONFIG_RATE = 10;
-            
-            private readonly PointOfSaleDeployment deploymentMessage;
+            private PointOfSaleDeployment deploymentMessage;
+            public static State_ContractDeploy Instance { get; } = new();
 
-            private State_ContractDeploy()
+            private State_ContractDeploy(){}
+            public override void Init()
             {
                 deploymentMessage = new PointOfSaleDeployment()
                 {
@@ -25,7 +26,6 @@ namespace dotnet
                 Options = OptionTemplate_Continue(State_DoorInteraction.Instance);
             }
 
-            public static State_ContractDeploy Instance { get; } = new();
 
             public override async Task Processing()
             {

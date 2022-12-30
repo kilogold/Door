@@ -4,13 +4,14 @@ namespace dotnet
     {
         private sealed class State_Terminate : BaseState
         {
-            private State_Terminate()
+            public static State_Terminate Instance { get; } = new();
+            private State_Terminate(){}
+            public override void Init()
             {
                 DisplayMessage = "Shutdown";
                 Options = new IState.Option[]{};
             }
 
-            public static State_Terminate Instance { get; } = new();
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace dotnet
 {
     public partial class Runtime
@@ -8,7 +10,9 @@ namespace dotnet
         public Runtime()
         {
             IsRunning = true;
-            Transition(State_Intro.Instance).Wait();
+            currentState = State_Intro.Instance;
+            currentState.RecursiveInit(new HashSet<IState>());
+            currentState.Enter();
         }
 
         public void PrintStateMessage()
@@ -56,7 +60,7 @@ namespace dotnet
                 {
                     break;
                 }
-                Console.CursorLeft -= 1;
+                Console.CursorLeft = Math.Max(0, Console.CursorLeft - 1);
             }
             
             await Transition(currentState.Options[selectedIdx].StateInstance);
@@ -69,7 +73,7 @@ namespace dotnet
 
         private async Task Transition(IState newState)
         {
-            currentState?.Exit();
+            currentState.Exit();
             currentState = newState;
             await currentState.Enter();
         }

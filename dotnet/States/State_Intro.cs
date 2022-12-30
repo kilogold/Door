@@ -4,7 +4,9 @@ namespace dotnet
     {
         private sealed class State_Intro : BaseState
         {
-            private State_Intro()
+            public static State_Intro Instance { get; } = new();
+            private State_Intro(){}
+            public override void Init()
             {
                 DisplayMessage = "Welcome to the runtime. Would you like to begin?";
                 Options = new[]
@@ -13,8 +15,6 @@ namespace dotnet
                     new IState.Option(label: "No", stateInstance: State_Terminate.Instance)
                 };
             }
-
-            public static State_Intro Instance { get; } = new();
         }
     }
 }

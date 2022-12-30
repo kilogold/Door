@@ -19,11 +19,13 @@ namespace dotnet
                 public IState StateInstance { get; }
             }
 
-            public string DisplayMessage { get; }
-            public Option[] Options { get; }
+            string DisplayMessage { get; }
+            Option[] Options { get; }
 
-            public Task Enter();
-            public void Exit();
+            void Init();
+            void RecursiveInit(HashSet<IState> initProgression);
+            Task Enter();
+            void Exit();
 
             public Task Processing();
         }

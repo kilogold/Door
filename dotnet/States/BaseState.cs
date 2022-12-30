@@ -12,8 +12,8 @@ namespace dotnet
                 };
             }
 
-            public virtual string DisplayMessage { get; protected init; }
-            public virtual IState.Option[] Options { get; protected init; }
+            public virtual string DisplayMessage { get; protected set; }
+            public virtual IState.Option[] Options { get; protected set; }
             public virtual void Exit() { /*Optional override*/ }
             public virtual Task Enter()
             {
@@ -25,6 +25,23 @@ namespace dotnet
                 /*Optional override*/
                 return Task.CompletedTask;
             }
-        }
+            public abstract void Init();
+
+            public virtual void RecursiveInit(HashSet<IState> initProgression)
+            {
+                if (initProgression.Contains(this))
+                {
+                    return;
+                }
+
+                Init();
+                initProgression.Add(this);
+                
+                foreach (var opt in Options)
+                {
+                    opt.StateInstance.RecursiveInit(initProgression);
+                }
+            }
+       }
     }
 }
