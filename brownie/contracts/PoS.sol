@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PointOfSale {
+contract PointOfSale is Ownable {
     using SafeMath for uint256;
 
     mapping (address=>uint256) public blockheightDeadlines;
@@ -12,7 +13,11 @@ contract PointOfSale {
         setRatePerBlock(rate);
     }
 
-    function setRatePerBlock(uint256 amount) private {
+    function payOut() public onlyOwner {
+        payable(owner()).transfer(address(this).balance);
+    }
+
+    function setRatePerBlock(uint256 amount) public onlyOwner {
         require(amount > 0);
         ratePerBlock = amount;
     }

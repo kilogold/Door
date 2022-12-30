@@ -11,7 +11,7 @@ namespace dotnet
                 DisplayMessage = "Welcome to the runtime. Would you like to begin?";
                 Options = new[]
                 {
-                    new IState.Option(label: "Yes", stateInstance: State_Init.Instance),
+                    new IState.Option(label: "Yes", stateInstance: State_Web3Init.Instance),
                     new IState.Option(label: "No", stateInstance: State_Terminate.Instance)
                 };
             }

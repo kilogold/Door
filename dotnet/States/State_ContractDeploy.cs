@@ -29,9 +29,9 @@ namespace dotnet
 
             public override async Task Processing()
             {
+                var web3 = Utils.ProduceWeb3FromEnv("POS_ADMIN_PRIV_KEY");
                 var output = await PointOfSaleService.DeployContractAndWaitForReceiptAsync(
-                    Blackboard.Instance.web3, 
-                    deploymentMessage);
+                    web3, deploymentMessage);
                 
                 Blackboard.Instance.posContractAddress = output.ContractAddress;
                 Console.WriteLine($"New contract deployed at: {output.ContractAddress}");
