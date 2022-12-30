@@ -8,7 +8,7 @@ namespace dotnet
             {
                 return new[]
                 {
-                    new IState.Option { Label = "Continue", StateInstance = transitionState}
+                    new IState.Option("Continue", transitionState)
                 };
             }
 

@@ -13,27 +13,42 @@ namespace dotnet
 
             private State_DoorCheck()
             {
-                alternatives = new()
-                {
-                    {
-                        Door.State.Locked, new Tuple<string, IState.Option[]>(
-                            "The door is locked.",
-                            new[]
-                            {
-                                new IState.Option() { Label = "Pay to unlock.", StateInstance = null },
-                                new IState.Option()
-                                    { Label = "Step back.", StateInstance = State_DoorInteraction.Instance }
-                            })
-                    },
+                alternatives = new();
 
-                    {
-                        Door.State.Unlocked, new Tuple<string, IState.Option[]>(
-                            "The door is unlocked. You traverse the door and it closes after you.\n" +
-                            "You face the door once again.",
-                            OptionTemplate_Continue(State_DoorInteraction.Instance)
-                        )
-                    },
+                int test = State_DoorInteraction.Instance.GetHashCode();
+                
+                var options = new IState.Option[]
+                {
+                    new("Step back.", State_DoorInteraction.Instance),
+                    new("Pay to unlock.", State_Terminate.Instance)
                 };
+                alternatives.Add(Door.State.Locked, new Tuple<string, IState.Option[]>("The door is locked.", options));
+                alternatives.Add(Door.State.Locked, new Tuple<string, IState.Option[]>(
+                    "The door is unlocked. You traverse the door and it closes after you.\n" +
+                    "You face the door once again.", 
+                    OptionTemplate_Continue(State_DoorInteraction.Instance))
+                );
+                
+                // alternatives = new()
+                // {
+                //     {
+                //         Door.State.Locked, new Tuple<string, IState.Option[]>(
+                //             "The door is locked.",
+                //             new[]
+                //             {
+                //                 new IState.Option("Step back.", State_DoorInteraction.Instance),
+                //                 new IState.Option("Pay to unlock.", State_Terminate.Instance)
+                //             })
+                //     },
+                //
+                //     {
+                //         Door.State.Unlocked, new Tuple<string, IState.Option[]>(
+                //             "The door is unlocked. You traverse the door and it closes after you.\n" +
+                //             "You face the door once again.",
+                //             OptionTemplate_Continue(State_DoorInteraction.Instance)
+                //         )
+                //     },
+                // };
             }
 
             public static State_DoorCheck Instance { get; } = new();

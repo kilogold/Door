@@ -1,18 +1,19 @@
-namespace dotnet;
-
-public partial class Runtime
+namespace dotnet
 {
-    private sealed class State_DoorInteraction : BaseState
+    public partial class Runtime
     {
-        private State_DoorInteraction()
+        private sealed class State_DoorInteraction : BaseState
         {
-            DisplayMessage = "The door stands before you. What will you do?";
-            Options = new[]
+            private State_DoorInteraction()
             {
-                new IState.Option() { Label = "Turn the handle.", StateInstance = State_DoorCheck.Instance }
-            };
-        }
+                DisplayMessage = "The door stands before you. What will you do?";
+                Options = new[]
+                {
+                    new IState.Option("Turn the handle.", State_DoorCheck.Instance)
+                };
+            }
 
-        public static State_DoorInteraction Instance { get; } = new();
+            public static State_DoorInteraction Instance { get; } = new();
+        }
     }
 }

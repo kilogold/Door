@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection.Emit;
 
 namespace dotnet
@@ -8,8 +9,14 @@ namespace dotnet
         {
             public struct Option
             {
-                public string Label { get; init; }
-                public IState StateInstance { get; init; }
+                public Option(string label, IState stateInstance)
+                {
+                    Label = label;
+                    StateInstance = stateInstance;
+                }
+
+                public string Label { get; }
+                public IState StateInstance { get; }
             }
 
             public string DisplayMessage { get; }

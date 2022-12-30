@@ -7,7 +7,7 @@ namespace dotnet
             private State_Terminate()
             {
                 DisplayMessage = "Shutdown";
-                Options = null;
+                Options = new IState.Option[]{};
             }
 
             public static State_Terminate Instance { get; } = new();
