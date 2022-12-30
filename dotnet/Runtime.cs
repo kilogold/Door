@@ -58,7 +58,10 @@ namespace dotnet
                 
                 if (int.TryParse(input.KeyChar.ToString(), out selectedIdx))
                 {
-                    break;
+                    if (selectedIdx >= 0 && selectedIdx < currentState.Options.Length)
+                    {
+                        break;
+                    }
                 }
                 Console.CursorLeft = Math.Max(0, Console.CursorLeft - 1);
             }

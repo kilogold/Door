@@ -10,7 +10,7 @@ namespace dotnet
     {
         private sealed class State_ContractDeploy : BaseState
         {
-            private const int CONFIG_RATE = 10;
+            public readonly BigInteger CONFIG_RATE = Web3.Convert.ToWei(100);
             private PointOfSaleDeployment deploymentMessage;
             public static State_ContractDeploy Instance { get; } = new();
 

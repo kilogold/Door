@@ -1,1 +1,1 @@
-ganache-cli  --hardfork istanbul --account="$POS_DOOR_PRIV_KEY",100000000000000000000000000
+ganache-cli --blockTime 6 --hardfork istanbul --account="$POS_DOOR_PRIV_KEY",100000000000000000000000000

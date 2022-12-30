@@ -23,7 +23,7 @@ namespace dotnet
                             new[]
                             {
                                 new IState.Option("Step back.", State_DoorInteraction.Instance),
-                                new IState.Option("Pay to unlock.", State_Terminate.Instance)
+                                new IState.Option("Pay to unlock.", State_PayAccess.Instance)
                             })
                     },
                 

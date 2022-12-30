@@ -25,6 +25,7 @@ namespace dotnet
                 /*Optional override*/
                 return Task.CompletedTask;
             }
+
             public abstract void Init();
 
             public virtual void RecursiveInit(HashSet<IState> initProgression)
