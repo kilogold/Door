@@ -20,7 +20,7 @@ namespace dotnet
                 var web3 = Blackboard.Instance.web3;
                 var func = new PayForAccessFunction()
                 {
-                    AmountToSend = State_ContractDeploy.Instance.CONFIG_RATE
+                    AmountToSend = ProgramConfig.CONFIG_RATE
                 };
                 var handler = web3.Eth.GetContractTransactionHandler<PayForAccessFunction>();
                 var receipt = await handler.SendRequestAndWaitForReceiptAsync(Blackboard.Instance.posContractAddress, func);

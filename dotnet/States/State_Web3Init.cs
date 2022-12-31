@@ -12,7 +12,10 @@ namespace dotnet
            public override void Init()
            {
                DisplayMessage = "Initializing Web3...";
-               Options = OptionTemplate_Continue(State_ContractDeploy.Instance);
+               
+               Options = string.IsNullOrEmpty(ProgramConfig.predefinedContractAddress)
+                   ? OptionTemplate_Continue(State_ContractDeploy.Instance)
+                   : OptionTemplate_Continue(State_ContractLoad.Instance);
            }
 
             public override Task Processing()
