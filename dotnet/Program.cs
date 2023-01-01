@@ -7,6 +7,8 @@ namespace dotnet
 {
     public static class ProgramConfig
     {
+        public const string rpcClientUri = "http://localhost:8545";
+        public const int chainId = 1337;
         public static string predefinedContractAddress = null;
         public static readonly BigInteger CONFIG_RATE = Web3.Convert.ToWei(100);
 
@@ -52,7 +54,10 @@ namespace dotnet
             Console.WriteLine("Please confirm the account address you will use on your Ledger device.");
             try
             {
-                extWeb3 = await Utils.ProduceWeb3FromLedgerDevice("http://localhost:8545", 1337, embeddedWeb3);
+                extWeb3 = await Utils.ProduceWeb3FromLedgerDevice(
+                    ProgramConfig.rpcClientUri, 
+                    ProgramConfig.chainId, 
+                    embeddedWeb3);
             }
             catch (Exception e)
             {

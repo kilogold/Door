@@ -11,7 +11,8 @@ namespace dotnet
                 DisplayMessage = "The door stands before you. What will you do?";
                 Options = new[]
                 {
-                    new IState.Option("Turn the handle.", State_DoorCheck.Instance)
+                    new IState.Option("Turn the handle.", State_DoorCheck.Instance),
+                    new IState.Option("Start over.", State_Intro.Instance)
                 };            
             }
 

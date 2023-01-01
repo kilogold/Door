@@ -1,6 +1,3 @@
-using Nethereum.Web3;
-using Nethereum.Web3.Accounts;
-
 namespace dotnet
 {
     public partial class Runtime
