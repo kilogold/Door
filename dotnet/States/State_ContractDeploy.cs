@@ -10,17 +10,12 @@ namespace dotnet
     {
         private sealed class State_ContractDeploy : BaseState
         {
-            private PointOfSaleDeployment deploymentMessage;
             public static State_ContractDeploy Instance { get; } = new();
 
             private State_ContractDeploy(){}
             public override void Init()
             {
-                deploymentMessage = new PointOfSaleDeployment()
-                {
-                    Rate = ProgramConfig.CONFIG_RATE
-                };
-                
+
                 DisplayMessage = "Deploying contract...";
                 Options = OptionTemplate_Continue(State_DoorInteraction.Instance);
             }
@@ -28,6 +23,11 @@ namespace dotnet
 
             public override async Task Processing()
             {
+                var deploymentMessage = new PointOfSaleDeployment()
+                {
+                    Rate = ProgramConfig.CONFIG_RATE
+                };
+                                
                 var output = await PointOfSaleService.DeployContractAndWaitForReceiptAsync(
                     Blackboard.Instance.web3, deploymentMessage);
                 
