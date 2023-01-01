@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Nethereum.Signer.Ledger" Version="4.12.0" />
     <PackageReference Include="Nethereum.Web3" Version="4.12.0" />
   </ItemGroup>
 
