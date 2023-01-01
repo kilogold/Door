@@ -1,3 +1,5 @@
+using Nethereum.Web3;
+
 namespace dotnet
 {
     public partial class Runtime
@@ -17,12 +19,19 @@ namespace dotnet
 
             public override async Task Processing()
             {
-                var fundingSource = Utils.ProduceWeb3FromEnv("POS_USER_PRIV_KEY");
-                
                 Blackboard.Instance.web3 = await Utils.ProduceWeb3FromLedgerDevice(
                     ProgramConfig.rpcClientUri, 
-                    ProgramConfig.chainId, 
-                    fundingSource);
+                    ProgramConfig.chainId);
+                
+                if (ProgramConfig.fundLedgerFromEvn)
+                {
+                    var fundingSource = Utils.ProduceWeb3FromEnv(ProgramConfig.ledgerFundingEnvPrivateKey);
+                    
+                    Console.WriteLine($"Financing Ledger device account ({Blackboard.Instance.web3.TransactionManager.Account.Address})\n" +
+                    $"with funding account ({fundingSource.TransactionManager.Account.Address})");
+
+                    await Utils.TransferFullBalance(fundingSource, Blackboard.Instance.web3);
+                }
             }
         }
     }

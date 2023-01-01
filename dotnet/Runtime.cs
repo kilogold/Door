@@ -29,12 +29,12 @@ namespace dotnet
             }           
         }
 
-        private bool InputIsQuit(ConsoleKeyInfo input)
+        private static bool InputIsQuit(ConsoleKeyInfo input)
         {
             return input.Key == ConsoleKey.Escape || input.Key == ConsoleKey.Q;
         }
 
-        private bool IsTerminalState(IState state)
+        private static bool IsTerminalState(IState state)
         {
             return state.Options == null || state.Options.Length == 0;
         }
