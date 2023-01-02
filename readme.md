@@ -83,7 +83,7 @@ Add the following env vars to for operation:
 | POS_ADMIN_PRIV_KEY            | Any private key representing the **deployer/owner account** of the smart contract     |
 | POS_LEDGER_FUNDING_PRIV_KEY   | Amply funded account used to optionally transfer funds onto a Ledger-provided account |
 
-You can use the [dev-ganashe-cli.sh](dev-ganashe-cli.sh) or [dev-ganashe-cli.bat](dev-ganashe-cli.bat) to spin up an appropriate dev chain with required accounts.
+You can use the [dev-ganache-cli.sh](dev-ganache-cli.sh) or [dev-ganache-cli.bat](dev-ganache-cli.bat) to spin up an appropriate dev chain with required accounts.
 > **_NOTE:_**  Ledger device user flows are **Windows only**.
 
 # Project Structure
