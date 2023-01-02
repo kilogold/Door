@@ -2,7 +2,7 @@
 Create a door that you can pay to unlock for a period of time, like a parking meter.
 
 # How?
-EVM smart contract. Alchemy.
+EVM smart contract.
 
 ``` mermaid
 sequenceDiagram
@@ -62,12 +62,32 @@ Could be done in regular .NET app (probably best). Could also be done in Unity, 
 To interact with an EVM network, I will need a library like Nethereum.
 
 ## Demo
+### Proof Of Concept
 https://user-images.githubusercontent.com/1028926/210047057-0e9c603f-eccf-4fd4-8c28-0dd55ae34af5.mp4
+### Contract Deployment
+Sepolia testnet: https://sepolia.etherscan.io/address/0x7bc3579c9d0ed872deb7f9515dbf1c7235ee8bdc#code
 
 # Setup
+## Required Tools
+* Ganache v7.7.2
+* Brownie v1.19.2
+* .NET 7 SDK
+## Additional Recommended Tools
+* VSCode + Solidity plugin (generates C# wrappers)
+
 ## Dev Env
-Add the following evn var to bashrc for easier iteration:
-```sh
-export POS_DOOR_PRIV_KEY="0xb5b1870957d373ef0eeffecc6e4812c0fd08f554b37b233526acc331bf1544f7"
-```
-You can use the [dev-ganashe-cli.sh](dev-ganashe-cli.sh) to spin up a dev chain with this account.
+Add the following env vars to for operation:
+| Variable      | Description |
+| -----------   | ----------- |
+| POS_USER_PRIV_KEY             | Any private key representing an **embedded user account** for payment transactions    |
+| POS_ADMIN_PRIV_KEY            | Any private key representing the **deployer/owner account** of the smart contract     |
+| POS_LEDGER_FUNDING_PRIV_KEY   | Amply funded account used to optionally transfer funds onto a Ledger-provided account |
+
+You can use the [dev-ganashe-cli.sh](dev-ganashe-cli.sh) or [dev-ganashe-cli.bat](dev-ganashe-cli.bat) to spin up an appropriate dev chain with required accounts.
+> **_NOTE:_**  Ledger device user flows are **Windows only**.
+
+# Project Structure
+This is a single repository housing a .NET & Brownie project, each in their respective root directories.
+To take advantage of IDE configurations, ensure you open the project within their root scopes:
+* [brownie](./brownie) for VSCode
+* [dotnet](./dotnet) for Rider
