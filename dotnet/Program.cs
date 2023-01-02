@@ -7,12 +7,12 @@ namespace dotnet
 {
     public static class ProgramConfig
     {
-        public static bool fundLedgerFromEvn = true;
+        public static bool fundLedgerFromEvn = false;
         public static string ledgerFundingEnvPrivateKey = "POS_LEDGER_FUNDING_PRIV_KEY";
-        public const string rpcClientUri = "http://localhost:8545";
-        public const int chainId = 1337;
-        public static string predefinedContractAddress = null;
-        public static readonly BigInteger CONFIG_RATE = Web3.Convert.ToWei(100);
+        public const string rpcClientUri = "https://sepolia.infura.io/v3/[YOUR PROJECT ID HERE]";
+        public const int chainId = 11155111;
+        public static string predefinedContractAddress = "0x7bc3579c9d0ed872deb7f9515dbf1c7235ee8bdc";
+        public static readonly BigInteger CONFIG_RATE = Web3.Convert.ToWei(0.0001);
 
         private static bool IsValidEVMAddress(string input)
         {

@@ -19,9 +19,7 @@ namespace dotnet
 
             public override async Task Processing()
             {
-                Blackboard.Instance.web3 = await Utils.ProduceWeb3FromLedgerDevice(
-                    ProgramConfig.rpcClientUri, 
-                    ProgramConfig.chainId);
+                Blackboard.Instance.web3 = await Utils.ProduceWeb3FromLedgerDevice();
                 
                 if (ProgramConfig.fundLedgerFromEvn)
                 {
