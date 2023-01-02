@@ -7,7 +7,7 @@ namespace dotnet
 {
     public static class ProgramConfig
     {
-        public static bool fundLedgerFromEvn = false;
+        public static bool fundLedgerFromEnv = false;
         public static string ledgerFundingEnvPrivateKey = "POS_LEDGER_FUNDING_PRIV_KEY";
         public const string rpcClientUri = "https://sepolia.infura.io/v3/[YOUR PROJECT ID HERE]";
         public const int chainId = 11155111;

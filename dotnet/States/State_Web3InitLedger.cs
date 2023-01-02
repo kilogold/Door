@@ -21,7 +21,7 @@ namespace dotnet
             {
                 Blackboard.Instance.web3 = await Utils.ProduceWeb3FromLedgerDevice();
                 
-                if (ProgramConfig.fundLedgerFromEvn)
+                if (ProgramConfig.fundLedgerFromEnv)
                 {
                     var fundingSource = Utils.ProduceWeb3FromEnv(ProgramConfig.ledgerFundingEnvPrivateKey);
                     
