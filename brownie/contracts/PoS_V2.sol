@@ -3,11 +3,18 @@ pragma solidity ^0.8.17;
 import "@upgradable-openzeppelin/contracts/utils/math/SafeMathUpgradeable.sol";
 import "@upgradable-openzeppelin/contracts/access/OwnableUpgradeable.sol";
 
-contract PointOfSale is Initializable, OwnableUpgradeable {
+/*
+ Same contract as {PoS.sol}, just demonstrating upgrade path
+ by adding event emissions
+*/
+contract PointOfSale_V2 is Initializable, OwnableUpgradeable {
     using SafeMathUpgradeable for uint256;
 
     mapping (address=>uint256) public blockheightDeadlines;
     uint256 public ratePerBlock;
+        
+    // Emitted when the stored value changes
+    event AccessGranted(address grantee, uint256 blockPeriod);
     
     function initialize(uint256 rate) public initializer {
         __Context_init_unchained();
@@ -54,5 +61,12 @@ contract PointOfSale is Initializable, OwnableUpgradeable {
             // Reset allowance to a newly computed deadline.
             blockheightDeadlines[_msgSender()] = block.number + newBlockAllowance;
         }
+
+        emit AccessGranted(_msgSender(), blockheightDeadlines[_msgSender()]);
+    }
+
+    function fakeEventEmit() public
+    {
+        emit AccessGranted(_msgSender(), 0);
     }
 }
