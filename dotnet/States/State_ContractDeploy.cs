@@ -25,7 +25,6 @@ namespace dotnet
             {
                 var deploymentMessage = new PointOfSaleDeployment()
                 {
-                    Rate = ProgramConfig.CONFIG_RATE
                 };
                                 
                 var output = await PointOfSaleService.DeployContractAndWaitForReceiptAsync(
@@ -33,6 +32,15 @@ namespace dotnet
                 
                 Blackboard.Instance.posContractAddress = output.ContractAddress;
                 Console.WriteLine($"New contract deployed at: {output.ContractAddress}");
+
+                var func = new InitializeFunction()
+                {
+                    Rate = ProgramConfig.CONFIG_RATE
+                };
+                var handler = Blackboard.Instance.web3.Eth.GetContractTransactionHandler<InitializeFunction>();
+                await handler.SendRequestAndWaitForReceiptAsync(Blackboard.Instance.posContractAddress, func);
+                Console.WriteLine($"Contract initialized with rate of: {ProgramConfig.CONFIG_RATE}");
+
             }
         }
     }
