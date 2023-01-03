@@ -9,13 +9,13 @@ namespace dotnet
 
             public override void Init()
             {
-                DisplayMessage = "Loading contract from config...\n" + ProgramConfig.predefinedContractAddress;
+                DisplayMessage = "Loading contract from config...\n" + ProgramConfig.chainSettings.predefinedContractAddress;
                 Options = OptionTemplate_Continue(State_DoorInteraction.Instance);
             }
 
             public override Task Processing()
             {
-                Blackboard.Instance.posContractAddress = ProgramConfig.predefinedContractAddress;
+                Blackboard.Instance.posContractAddress = ProgramConfig.chainSettings.predefinedContractAddress;
                 return Task.CompletedTask;
             }
         }

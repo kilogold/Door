@@ -17,21 +17,21 @@ namespace dotnet
             if (string.IsNullOrEmpty(privateKey))
                 throw new Exception($"Environment variable {envVar} is not defined.");
 
-            var account = new Account(privateKey, ProgramConfig.chainId);
-            return new Web3(account, ProgramConfig.rpcClientUri);
+            var account = new Account(privateKey, ProgramConfig.chainSettings.chainId);
+            return new Web3(account, ProgramConfig.chainSettings.rpcClientUri);
         }
         
         public static async Task<Web3> ProduceWeb3FromLedgerDevice()
         {
-            var rpcClient = new RpcClient(new Uri(ProgramConfig.rpcClientUri));
+            var rpcClient = new RpcClient(new Uri(ProgramConfig.chainSettings.rpcClientUri));
             var ledgerManagerBroker = NethereumLedgerManagerBrokerFactory.CreateWindowsHidUsb();
             var ledgerManager = (LedgerManager)await ledgerManagerBroker.WaitForFirstDeviceAsync();
             var signer = new LedgerExternalSigner(ledgerManager, 0);
-            var signerAccount = new ExternalAccount(signer, ProgramConfig.chainId);
+            var signerAccount = new ExternalAccount(signer, ProgramConfig.chainSettings.chainId);
             await signerAccount.InitialiseAsync();
             signerAccount.InitialiseDefaultTransactionManager(rpcClient);
             
-            return new Web3(signerAccount, ProgramConfig.rpcClientUri);
+            return new Web3(signerAccount, ProgramConfig.chainSettings.rpcClientUri);
         }
 
         public static async Task TransferFullBalance(Web3 from, Web3 to)
