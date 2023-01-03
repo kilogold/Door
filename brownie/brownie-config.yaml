@@ -6,4 +6,5 @@ reports:
 compiler:
   solc:
     remappings:
+      - "@upgradable-openzeppelin=OpenZeppelin/openzeppelin-contracts-upgradeable@4.8.0"
       - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.8.0"
