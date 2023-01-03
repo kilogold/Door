@@ -1,4 +1,5 @@
-from brownie import accounts
+from brownie import accounts 
+from brownie.network.account import ClefAccount
 
 
 def encode_function_data(initializer=None, *args):
@@ -54,5 +55,17 @@ def upgrade(
             transaction = proxy.upgradeTo(newimplementation_address, {"from": account})
     return transaction
 
-def get_clef_account():
-    return accounts[0]
+def get_account(useClef):
+    print(useClef)
+    if useClef == False:
+        print("Grabbing first embed account.")
+        return accounts[0]
+
+    print("Connecting to Clef.")
+    accounts.connect_to_clef()
+    for act in accounts:
+        if type(act) is ClefAccount:
+            print("Grabbing first Clef account.")
+            return act
+
+    return None

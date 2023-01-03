@@ -39,7 +39,7 @@ contract PointOfSale is Initializable, OwnableUpgradeable {
 
     function payForAccess() public payable {
         uint256 payAmount = msg.value;
-        require(payAmount >= ratePerBlock, "Not enough payment for a single block."); // dev: REVERT_MSG for Kelvin
+        require(payAmount >= ratePerBlock, "Not enough payment for a single block.");
 
         uint256 newBlockAllowance = computeBlockHeightFromPayment(payAmount);
         if(hasAccess(_msgSender())) // If allowance hasn't expired...

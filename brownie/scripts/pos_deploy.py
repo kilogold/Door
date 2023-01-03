@@ -9,10 +9,12 @@ from brownie import (
     Wei
 )
 
-from scripts.helpful_scripts import encode_function_data, get_clef_account
+from scripts.helpful_scripts import encode_function_data, get_account
 
-def main():
-    account = get_clef_account()
+def main(*args):
+    useClef = eval(args[0])
+    account = get_account(useClef)
+    
     logic_contract = PointOfSale.deploy(
         {'from': account})
 

@@ -7,11 +7,13 @@ from brownie import (
     Contract,
     run
 )
-from scripts.helpful_scripts import get_clef_account, upgrade
+from scripts.helpful_scripts import get_account, upgrade
 
 
-def main():
-    account = get_clef_account()
+def main(*args):
+    useClef = eval(args[0])
+    account = get_account(useClef)
+
     logic = PointOfSale_V2.deploy(
         {'from': account}
     )
