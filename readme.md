@@ -84,8 +84,8 @@ Door-->>-Bob: Open
     UpdateRelStyle(admin, proxy, $offsetY="80", $offsetX="25")
     Rel(proxyAdmin, proxy, "Upgrade")
     UpdateRelStyle(proxyAdmin, proxy, $offsetY="10", $offsetX="-35")
-    Rel(proxy, pos, "Invoke logic")
-    UpdateRelStyle(proxy, pos, $offsetY="10", $offsetX="-30")
+    Rel(proxy, pos, "Initialize. Invoke logic")
+    UpdateRelStyle(proxy, pos, $offsetY="15", $offsetX="-45")
     Rel(ui,proxy,"Execute user flow")
     UpdateRelStyle(ui,proxy, $offsetY="-40", $offsetX="10")
 ```
@@ -97,8 +97,13 @@ To interact with an EVM network, I will need a library like Nethereum.
 ## Demo
 ### Proof Of Concept
 https://user-images.githubusercontent.com/1028926/210047057-0e9c603f-eccf-4fd4-8c28-0dd55ae34af5.mp4
-### Contract Deployment
-Sepolia testnet: https://sepolia.etherscan.io/address/0x7bc3579c9d0ed872deb7f9515dbf1c7235ee8bdc#code
+### Contract Deployments
+
+| Contract      | Address     |
+| -----------   | ----------- |
+|PointOfSale(v1) | [0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf](https://sepolia.etherscan.io/address/0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf) |
+|ProxyAdmin | [0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283](https://sepolia.etherscan.io/address/0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283)
+|TransparentUpgradeableProxy | [0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa](https://sepolia.etherscan.io/address/0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa)
 
 # Setup
 ## Required Tools
