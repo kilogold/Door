@@ -16,10 +16,13 @@ def main(*args):
     account = get_account(useClef)
     
     logic_contract = PointOfSale.deploy(
-        {'from': account})
+        {'from': account},
+        publish_source=True,
+    )
 
     proxy_admin_contract = ProxyAdmin.deploy(
         {"from": account},
+        publish_source=True,
     )
 
     proxy_contract = TransparentUpgradeableProxy.deploy(
@@ -27,6 +30,7 @@ def main(*args):
         proxy_admin_contract.address,
         encode_function_data(logic_contract.initialize, Wei("0.001 ether")),
         {"from": account, "gas_limit": 1000000},
+        publish_source=True,
     )    
     print(f"Proxy deployed to {proxy_contract}. You can now upgrade it.")
 
