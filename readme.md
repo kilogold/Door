@@ -26,7 +26,7 @@ else Not allowed or permission expired
     Bob->>+UI: Sign transaction
     UI->>contract: Register sender allowance[Payable]
     contract->>contract: Compute unlock (block) time
-    Alchemy-->>UI: Transaction successful
+    contract-->>UI: Transaction successful
 end
 UI->>-Door: Unlock
 Bob->>+Door: Engage
@@ -38,23 +38,56 @@ Door-->>-Bob: Open
     C4Container
     title Container diagram for Door
     Person(user, User, "A customer of the door.", $tags="v1.0")
+    Person(admin, Admin, "Administrates the Door's deployment", $tags="v1.0")
     Container_Boundary(EVM, "Ethereum") {
-        Container(pos, "PoS", "Solidity", "Smart contract serving as point of sale.")
+        System(contracts, "Smart Contracts", "A suite of on-chain API's")
     }
-    Container_Boundary(sysDoor, "Door") {
+        Container_Boundary(sysDoor, "Door") {
         Container(ui, "UI Controller", "C#", "Automates locking/unlocking mechanism")
         Container(door, "Door", "Wood", "A physical door")
-    }
+    }   
+
     Rel(ui,door,"Locks/Unlocks")
     UpdateRelStyle(ui, door, $offsetY="-25", $offsetX="-35")
     Rel(user,ui, "Pay/validate access.")
     UpdateRelStyle(user,ui, $offsetY="75", $offsetX="120")
-    Rel(user,pos, "Pay/verify access.")
-    UpdateRelStyle(user,pos, $offsetY="75", $offsetX="-80")
-    Rel(ui,pos, "Transact/validate access.")
-    UpdateRelStyle(ui,pos, $offsetY="-25", $offsetX="-65")
+    Rel(user,contracts, "Pay/verify access.")
+    UpdateRelStyle(user,contracts, $offsetY="75", $offsetX="-90")
+    Rel(ui,contracts, "Transact/validate access.")
+    UpdateRelStyle(ui,contracts, $offsetY="30", $offsetX="-65")
     Rel(user,door,"Open/Close")
     UpdateRelStyle(user,door, $offsetY="90", $offsetX="230")
+
+    Rel(admin, contracts, "Deploy/Payout/Upgrade")
+    UpdateRelStyle(admin, contracts, $offsetY="-60", $offsetX="80")
+```
+
+``` mermaid
+    C4Container
+    title Container diagram for administration of Smart Contracts
+    Person(admin, Admin, "Administrates the Door's deployment")
+    Container_Ext(ui, "UI Controller", "C#", "Automates locking/unlocking mechanism")
+    Container_Boundary(EVM, "Ethereum") {
+        Container(pos, "PointOfSale", "Solidity", "Logic serving as point of sale.")
+        Container(proxy, "PointOfSale Proxy", "Solidity", "State serving as point of sale.")
+        Container(proxyAdmin, "Proxy Admin", "Solidity", "Admin-specific operations for proxy contracts.")
+    }
+    Person(user, User, "A customer of the door.")
+
+    Rel(user,ui, "Uses")
+    UpdateRelStyle(user, ui, $offsetY="-10", $offsetX="0")
+    Rel(admin, pos, "Deploy")
+    UpdateRelStyle(admin, pos, $offsetY="80", $offsetX="-35")
+    Rel(admin, proxyAdmin, "Deploy. Initiate proxy upgrade.")
+    UpdateRelStyle(admin,proxyAdmin, $offsetY="70", $offsetX="180")
+    Rel(admin, proxy, "Deploy")
+    UpdateRelStyle(admin, proxy, $offsetY="80", $offsetX="25")
+    Rel(proxyAdmin, proxy, "Upgrade")
+    UpdateRelStyle(proxyAdmin, proxy, $offsetY="10", $offsetX="-35")
+    Rel(proxy, pos, "Invoke logic")
+    UpdateRelStyle(proxy, pos, $offsetY="10", $offsetX="-30")
+    Rel(ui,proxy,"Execute user flow")
+    UpdateRelStyle(ui,proxy, $offsetY="-40", $offsetX="10")
 ```
 
 # Door UI
