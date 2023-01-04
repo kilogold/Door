@@ -64,9 +64,4 @@ contract PointOfSale_V2 is Initializable, OwnableUpgradeable {
 
         emit AccessGranted(_msgSender(), blockheightDeadlines[_msgSender()]);
     }
-
-    function fakeEventEmit() public
-    {
-        emit AccessGranted(_msgSender(), 0);
-    }
 }
