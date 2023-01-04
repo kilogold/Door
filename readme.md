@@ -4,6 +4,15 @@ Create a door that you can pay to unlock for a period of time, like a parking me
 # How?
 EVM smart contract.
 
+# Door UI
+Could be done in regular .NET app (probably best). Could also be done in Unity, but I don't need a renderer to make this happen.
+To interact with an EVM network, I will need a library like Nethereum.
+
+# Point of Sale
+A smart contract dictating the state of an account. The state had a deadline by which the access will have expired. The contract accepts payment and can be collected by the contract owner.  
+The smart contract is upgradable, using a [transparent proxy pattern](https://blog.openzeppelin.com/the-transparent-proxy-pattern/).
+
+# Specifications
 ``` mermaid
 sequenceDiagram
 
@@ -90,20 +99,19 @@ Door-->>-Bob: Open
     UpdateRelStyle(ui,proxy, $offsetY="-40", $offsetX="10")
 ```
 
-# Door UI
-Could be done in regular .NET app (probably best). Could also be done in Unity, but I don't need a renderer to make this happen.
-To interact with an EVM network, I will need a library like Nethereum.
-
-## Demo
-### Proof Of Concept
+# Demo
+## Proof Of Concept
 https://user-images.githubusercontent.com/1028926/210047057-0e9c603f-eccf-4fd4-8c28-0dd55ae34af5.mp4
-### Contract Deployments
+## Contract Deployments
 
 | Contract      | Address     |
 | -----------   | ----------- |
-|PointOfSale(v1) | [0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf](https://sepolia.etherscan.io/address/0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf) |
-|ProxyAdmin | [0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283](https://sepolia.etherscan.io/address/0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283)
-|TransparentUpgradeableProxy | [0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa](https://sepolia.etherscan.io/address/0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa)
+|PointOfSale(v1) | [0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf](https://sepolia.etherscan.io/address/0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf#code) |
+|PointOfSale(v2) | [0xa9707933aB44AFe0D1a40E4288BF774a1E1199Fc](https://sepolia.etherscan.io/address/0xa9707933aB44AFe0D1a40E4288BF774a1E1199Fc#code) |
+|ProxyAdmin | [0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283](https://sepolia.etherscan.io/address/0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283#code)
+|TransparentUpgradeableProxy | [0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa](https://sepolia.etherscan.io/address/0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa#code)
+
+Contract upgrade transaction: [0xcd608270796d615e246bf85acb7e4f6328784a4547663e9752b64917807690b4](https://sepolia.etherscan.io/address/0xcd608270796d615e246bf85acb7e4f6328784a4547663e9752b64917807690b4)
 
 # Setup
 ## Required Tools
@@ -124,8 +132,26 @@ Add the following env vars to for operation:
 You can use the [dev-ganache-cli.sh](dev-ganache-cli.sh) or [dev-ganache-cli.bat](dev-ganache-cli.bat) to spin up an appropriate dev chain with required accounts.
 > **_NOTE:_**  Ledger device user flows are **Windows only**.
 
-# Project Structure
+## Project Structure
 This is a single repository housing a .NET & Brownie project, each in their respective root directories.
 To take advantage of IDE configurations, ensure you open the project within their root scopes:
 * [brownie](./brownie) for VSCode
 * [dotnet](./dotnet) for Rider
+
+## Proxy Contract Usage
+To invoke the correct logic & state for the *Point Of Sale (POS)* contract, you must invoke the POS functions using the appropriate ABI towards the Proxy contract address.
+
+In our Brownie project:
+```py
+proxy_address = "0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa"  
+proxy_logic = Contract.from_abi("PointOfSale_V2", proxy_address, PointOfSale_V2.abi)
+rate = proxy_logic.ratePerBlock()
+```
+
+In our .NET(Nethereum) project:
+```csharp
+var proxyAddress = "0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa";
+var handler = web3.Eth.GetContractQueryHandler<Brownie.Contracts.PointOfSale_V2.ContractDefinition.RatePerBlockFunction>();
+var func = new Brownie.Contracts.PointOfSale_V2.ContractDefinition.RatePerBlockFunction();
+var rate = await handler.QueryAsync<BigInteger>(proxyAddress, func);
+```
