@@ -8,3 +8,6 @@ compiler:
     remappings:
       - "@upgradable-openzeppelin=OpenZeppelin/openzeppelin-contracts-upgradeable@4.8.0"
       - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.8.0"
+dependencies:
+    - OpenZeppelin/openzeppelin-contracts@4.8.0
+    - OpenZeppelin/openzeppelin-contracts-upgradeable@4.8.0
