@@ -103,15 +103,22 @@ Door-->>-Bob: Open
 ## Proof Of Concept
 https://user-images.githubusercontent.com/1028926/210047057-0e9c603f-eccf-4fd4-8c28-0dd55ae34af5.mp4
 ## Contract Deployments
-
+### **Sepolia Network**
+Exercised with [contract upgrading](https://sepolia.etherscan.io/address/0xcd608270796d615e246bf85acb7e4f6328784a4547663e9752b64917807690b4).
 | Contract      | Address     |
 | -----------   | ----------- |
 |PointOfSale(v1) | [0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf](https://sepolia.etherscan.io/address/0xa39BfFd1b02b3928e2FDB52FD3DAA7D8A1c875Bf#code) |
 |PointOfSale(v2) | [0xa9707933aB44AFe0D1a40E4288BF774a1E1199Fc](https://sepolia.etherscan.io/address/0xa9707933aB44AFe0D1a40E4288BF774a1E1199Fc#code) |
 |ProxyAdmin | [0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283](https://sepolia.etherscan.io/address/0x5624726dF6118BC6Ca6b17Ed40F02aFCBEFBf283#code)
-|TransparentUpgradeableProxy | [0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa](https://sepolia.etherscan.io/address/0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa#code)
-
-Contract upgrade transaction: [0xcd608270796d615e246bf85acb7e4f6328784a4547663e9752b64917807690b4](https://sepolia.etherscan.io/address/0xcd608270796d615e246bf85acb7e4f6328784a4547663e9752b64917807690b4)
+|TransparentUpgradeableProxy | [0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa](https://sepolia.etherscan.io/address/0x1280071f324a0dF87E0EeE9F8Dc6729Fa0a78FDa#code)  
+  
+### **Goerli Network**
+Initially publishing [PoS_V2.sol](./brownie/contracts/PoS_V2.sol).
+| Contract      | Address     |
+| -----------   | ----------- |
+|PointOfSale(v2) | [0x3A715A42b46241f0121C7A49231E600BFbaEE82b](https://goerli.etherscan.io/address/0x3A715A42b46241f0121C7A49231E600BFbaEE82b#code) |
+|ProxyAdmin | [0x7bc3579C9d0Ed872Deb7F9515dbf1C7235EE8bDc](https://goerli.etherscan.io/address/0x7bc3579C9d0Ed872Deb7F9515dbf1C7235EE8bDc#code)
+|TransparentUpgradeableProxy | [0xb851144C34c8B7cD619d7Be2C376F8C4062A0516](https://goerli.etherscan.io/address/0xb851144C34c8B7cD619d7Be2C376F8C4062A0516#code)
 
 # Setup
 ## Required Tools
