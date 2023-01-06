@@ -9,7 +9,7 @@ namespace dotnet
     {
         public static bool fundLedgerFromEnv = false;
         public static string ledgerFundingEnvPrivateKey = "POS_LEDGER_FUNDING_PRIV_KEY";
-        public static readonly BigInteger CONFIG_RATE = Web3.Convert.ToWei(0.0001);
+        public static readonly BigInteger CONFIG_RATE = Web3.Convert.ToWei(0.001);
         public static readonly BlockchainConnectionSettings chainSettings = new DevChainSettings();
 
         private static bool IsValidEVMAddress(string input)
