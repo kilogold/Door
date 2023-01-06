@@ -1,4 +1,4 @@
-using Brownie.Contracts.PointOfSale.ContractDefinition;
+using Brownie.Contracts.PointOfSale_V2.ContractDefinition;
 
 namespace dotnet
 {
@@ -22,6 +22,9 @@ namespace dotnet
                 {
                     AmountToSend = ProgramConfig.CONFIG_RATE
                 };
+                Console.WriteLine($"Paying: {func.AmountToSend} Wei");
+
+
                 var handler = web3.Eth.GetContractTransactionHandler<PayForAccessFunction>();
                 var receipt = await handler.SendRequestAndWaitForReceiptAsync(Blackboard.Instance.posContractAddress, func);
                 

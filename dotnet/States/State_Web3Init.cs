@@ -18,6 +18,7 @@ namespace dotnet
             public override Task Processing()
             {
                 Blackboard.Instance.web3 = Utils.ProduceWeb3FromEnv("POS_USER_PRIV_KEY");
+                Console.WriteLine($"Initialized user with address {Blackboard.Instance.web3.TransactionManager.Account.Address}");
                 return Task.CompletedTask;
             }
         }
