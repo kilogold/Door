@@ -120,6 +120,8 @@ Contract upgrade transaction: [0xcd608270796d615e246bf85acb7e4f6328784a4547663e9
 * .NET 7 SDK
 ## Additional Recommended Tools
 * VSCode + Solidity plugin (generates C# wrappers)
+## Pro Tips
+* When building for Raspberry Pi 4B (arm32v7), you'll need to build your solc compiler from source because such flavor is not offered on the releases page. Afterwards, you'll need to do [this symlink trick](https://ethereum.stackexchange.com/a/133465/114515) to get brownie building.
 
 ## Dev Env
 Add the following env vars to for operation:
